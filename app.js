@@ -65,8 +65,8 @@ app.post('/formulaire-save', (req, res) => {
        nom,
        prenom 
     })
-    console.log('database.users', database.users)
-    res.send(`Bonjour ${nom} ${prenom}`)
+    // res.send(`Bonjour ${nom} ${prenom}`)
+    res.redirect('/formulaire')
 })
 
 app.get('/formulaire', (req, res) => {
