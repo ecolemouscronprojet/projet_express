@@ -1,10 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const app = express();
+// database
+const database = {
+    users: []
+}
 
 app.set('view engine', 'ejs');
 
 const port = 3000;
 
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
     const { prenom } = req.query
@@ -53,8 +59,14 @@ app.get('/table-de-multiplication', (req, res) => {
 })
 
 app.post('/formulaire-save', (req, res) => {
-    console.log(req.body)
-    res.send('En cours de sauvegarde')
+    const nom = req.body.nom
+    const prenom = req.body.prenom
+    database.users.push({
+       nom,
+       prenom 
+    })
+    console.log('database.users', database.users)
+    res.send(`Bonjour ${nom} ${prenom}`)
 })
 
 app.get('/formulaire', (req, res) => {
