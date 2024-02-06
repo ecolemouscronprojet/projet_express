@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Utilisateurs</h1>
+            <ul>
+                <% for(i=0; i<users.length; i++){ %>
+                <li><%= `${users[i].nom} ${users[i].prenom}` %></li>
+                <% } %>
+            </ul>
+        </div>
+    </main>
+    
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

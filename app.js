@@ -69,8 +69,19 @@ app.post('/formulaire-save', (req, res) => {
     res.redirect('/formulaire')
 })
 
+// Créer une nouvelle route /utilisateurs
+// avec un tpl html qui permet de lister les utilisateurs
+
+
+
 app.get('/formulaire', (req, res) => {
     res.render('pages/formulaire')
+})
+
+app.get('/utilisateurs', (req, res) => {
+    res.render('pages/utilisateurs', {
+        users: database.users
+    })
 })
 
 
