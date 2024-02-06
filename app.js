@@ -52,6 +52,15 @@ app.get('/table-de-multiplication', (req, res) => {
     })
 })
 
+app.post('/formulaire-save', (req, res) => {
+    console.log(req.body)
+    res.send('En cours de sauvegarde')
+})
+
+app.get('/formulaire', (req, res) => {
+    res.render('pages/formulaire')
+})
+
 
 
 // hello-world-2 création d'une page et affichage
