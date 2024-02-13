@@ -103,6 +103,20 @@ app.get('/bonjour', (req, res) => {
 
 });
 
+app.get('/supprimer', (req, res) => {
+    const id = req.query.id
+    if (id != null) {
+        const index = database.users.findIndex((user) => {
+            return user.id === id
+        })
+        if (index !== -1) {
+            database.users.splice(index, 1)
+        }
+    }
+
+    res.redirect('/utilisateurs')
+})
+
 
 app.get('/calculatrice', (req, res) => {
     let { nb1, nb2 } = req.query
