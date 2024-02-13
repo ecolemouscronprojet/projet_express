@@ -14,28 +14,32 @@
     <main>
         <div class="jumbotron">
             <h1>Utilisateurs</h1>
-            
-            <table class="table">
-                <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Action</th>
-                </tr>
-                
-                <% for(i=0; i<users.length; i++){ %>
+            <% if (users.length == 0) { %>
+                <div class="alert alert-info" role="alert">
+                    Aucun Utilisateurs
+                </div>
+            <% } else {  %>
+                <table class="table">
                     <tr>
-                        <td><%= i+1 %></td>
-                        <td><%= `${users[i].nom}` %></td>
-                        <td><%= `${users[i].prenom}` %></td>
-                        <td>
-                            <a href="/supprimer?id=<%= `${users[i].id}` %>">Supprimer</a>
-                        </td>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Action</th>
                     </tr>
-                <% } %>
                     
-            </table>
-            
+                    <% for(i=0; i<users.length; i++){ %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= `${users[i].nom}` %></td>
+                            <td><%= `${users[i].prenom}` %></td>
+                            <td>
+                                <a href="/supprimer?id=<%= `${users[i].id}` %>">Supprimer</a>
+                            </td>
+                        </tr>
+                    <% } %>
+                        
+                </table>
+            <% } %>
      
         </div>
     </main>
