@@ -66,7 +66,7 @@ app.post('/formulaire-save', (req, res) => {
        prenom 
     })
     // res.send(`Bonjour ${nom} ${prenom}`)
-    res.redirect('/formulaire')
+    res.redirect('/utilisateurs')
 })
 
 // Créer une nouvelle route /utilisateurs
