@@ -28,7 +28,9 @@
                         <td><%= i+1 %></td>
                         <td><%= `${users[i].nom}` %></td>
                         <td><%= `${users[i].prenom}` %></td>
-                        <td>SUPP</td>
+                        <td>
+                            <a href="/supprimer?id=<%= `${users[i].id}` %>">Supprimer</a>
+                        </td>
                     </tr>
                 <% } %>
                     

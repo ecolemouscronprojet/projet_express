@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const { v4: uuidv4 } = require('uuid');
+
 const app = express();
 // database
 const database = {
@@ -62,6 +64,7 @@ app.post('/formulaire-save', (req, res) => {
     const nom = req.body.nom
     const prenom = req.body.prenom
     database.users.push({
+       id: uuidv4(),
        nom,
        prenom 
     })
