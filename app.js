@@ -77,9 +77,36 @@ app.post('/formulaire-save', (req, res) => {
 
 
 
+// CREER UN UTILISATEUR
 app.get('/formulaire', (req, res) => {
     res.render('pages/formulaire')
 })
+
+// MODIFIER UN UTILISATEUR
+app.get('/update-user', (req, res) => {
+    const id = req.query.id;
+    if(id === undefined) {
+        return res.redirect('/utilisateurs')
+    }
+
+    const user = database.users.find((user) => user.id === id)
+
+    // let user = null
+    // for(let i=0; i < database.users.length; i++){
+    //     const u = database.users[i];
+    //     if(u.id ===id) {
+    //         user = u;
+    //         break;
+    //     }
+    // }
+
+
+    res.render('pages/formulaire')
+
+})
+
+
+
 
 app.get('/utilisateurs', (req, res) => {
     res.render('pages/utilisateurs', {
