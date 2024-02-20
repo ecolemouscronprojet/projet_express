@@ -61,13 +61,20 @@ app.get('/table-de-multiplication', (req, res) => {
 })
 
 app.post('/formulaire-save', (req, res) => {
+    const id = req.body.id
     const nom = req.body.nom
     const prenom = req.body.prenom
-    database.users.push({
-       id: uuidv4(),
-       nom,
-       prenom 
-    })
+
+    if(id == null){
+        database.users.push({
+            id: uuidv4(),
+            nom,
+            prenom 
+        })
+    } else {
+        // retrouver l'utilisateur
+        // mdofier nom et prenom
+    }
     // res.send(`Bonjour ${nom} ${prenom}`)
     res.redirect('/utilisateurs')
 })
@@ -79,7 +86,9 @@ app.post('/formulaire-save', (req, res) => {
 
 // CREER UN UTILISATEUR
 app.get('/formulaire', (req, res) => {
-    res.render('pages/formulaire')
+    res.render('pages/formulaire',  {
+        user: {}
+    })
 })
 
 // MODIFIER UN UTILISATEUR
@@ -89,19 +98,24 @@ app.get('/update-user', (req, res) => {
         return res.redirect('/utilisateurs')
     }
 
-    const user = database.users.find((user) => user.id === id)
+    // const user = database.users.find((user) => user.id === id)
 
-    // let user = null
-    // for(let i=0; i < database.users.length; i++){
-    //     const u = database.users[i];
-    //     if(u.id ===id) {
-    //         user = u;
-    //         break;
-    //     }
-    // }
+    let user = null
+    for(let i=0; i < database.users.length; i++){
+        const u = database.users[i];
+        if(u.id ===id) {
+            user = u;
+        }
+    }
+
+    if(user === null) {
+        return res.redirect('/utilisateurs')
+    }
 
 
-    res.render('pages/formulaire')
+    res.render('pages/formulaire', {
+        user
+    })
 
 })
 
