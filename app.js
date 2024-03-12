@@ -41,7 +41,7 @@ app.post('', (req, res) => {
 
 app.post('/users', (req, res) => {
     const { nom, prenom } = req.body;
-    if(nom != null && prenom != null) {
+    if (nom != null && prenom != null) {
         users.push({
             nom,
             prenom
@@ -56,16 +56,23 @@ app.get('/users', (req, res) => {
     res.json(users)
 })
 
+app.delete('/users/:index', (req, res) => {
+    const { index } = req.params;
+    if (index == null) {
+        return res.send('Index manquant');
+    }
 
+    if (users[index] == null) {
+        return res.status(404).send('Utilisateur non trouvé')
+    }
+    users.splice(index, 1);
 
-//créez une méthode permettant de supprimer un utilisateur, 
-//passez en paramètre l'index du user que vous souhaitez supprimer
-// si l'index n'existe pas retourner une erreur 404 non trouvée
-// /users?id=8        /users/8
+    return res.send('Utilisateur supprimé');
+})
 
 
 
 // on lance notre application
-app.listen(port, function() {
+app.listen(port, function () {
     console.log('Application lancée')
 })
