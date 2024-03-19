@@ -3,6 +3,7 @@ const express = require('express');
 
 const bodyParser = require('body-parser')
 const { v4: uuidv4 } = require('uuid');
+const errors = [];
 
 const app = express();
 // database
@@ -63,9 +64,14 @@ app.get('/table-de-multiplication', (req, res) => {
 })
 
 app.post('/formulaire-save', (req, res) => {
-    const id = req.body.id
-    const nom = req.body.nom
-    const prenom = req.body.prenom
+    const {id, nom, prenom } = req.body
+
+    const pattern = /^[a-z]+$/i
+    if(pattern.test(nom) === false) {
+        errors.push('Veuillez rentrer un nom valide.')
+        const url = id ? `update-user?id=${id}` : `formulaire`;
+        return res.redirect(url)
+    }
 
     if(id == null || id.length ===0) {
         database.users.push({
@@ -74,14 +80,12 @@ app.post('/formulaire-save', (req, res) => {
             prenom 
         })
     } else {
-        let user = null
-        for(let i=0; i < database.users.length; i++){
-            const u = database.users[i];
-            if(u.id ===id) {
-                user = u;
-            }
+        const user = database.users.find(u => u.id == id)
+        if(user === undefined) {
+            return res.status(404).send('Utilisateur non trouvé !');
         }
-        // LE METTRE A JOUR
+        user.nom = nom
+        user.prenom = prenom
     }
    
     res.redirect('/utilisateurs')
@@ -94,8 +98,14 @@ app.post('/formulaire-save', (req, res) => {
 
 // CREER UN UTILISATEUR
 app.get('/formulaire', (req, res) => {
+    // CREER UNE COPIE
+    const displayErrors = JSON.parse(JSON.stringify(errors))
+    // VIDER LE TABLEAU D ERREURS
+    errors.length = 0;
+
     res.render('pages/formulaire',  {
-        user: {}
+        user: {},
+        errors: displayErrors
     })
 })
 

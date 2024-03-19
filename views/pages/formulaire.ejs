@@ -12,8 +12,18 @@
     </header>
 
     <main>
+   
+
         <div class="jumbotron">
             <h1>Formulaire</h1>
+            <% if (errors.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                <% for(i=0; i<errors.length; i++){ %>
+                    <%= errors[i] %>
+                <% } %>
+                </div>
+            <% } %>
+
             <form action="formulaire-save" method="post">
                 <input type="hidden" name="id"  value="<%= user.id %>">
                 <div>
